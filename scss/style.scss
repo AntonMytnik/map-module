@@ -1,81 +1,153 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;800&display=swap');
+
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
 
+body {
+    background-color: rgb(34, 34, 34);
+}
+
 .wrap {
     display: flex;
     flex-direction: column;
+    position: relative;
 }
 
 .map {
     position: relative;
+    max-height: 900px;
+    overflow: hidden;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
 
     .bg {
         width: 100%;
         height: 100%;
         -webkit-user-drag: none;
     }
+
     .houses {
         .block {
+            opacity: 0;
             transition: .3s;
+
             &:hover {
                 opacity: 1;
                 transition: .3s;
-
+                cursor: pointer;
             }
+
             .house {
                 position: absolute;
             }
+
             .h1a {
                 top: 316px;
                 left: 110px;
             }
+
             .h1b {
                 top: 266px;
                 left: 309px;
             }
+
             .h2a {
                 top: 170px;
                 left: 600px;
             }
-            .h2b{
+
+            .h2b {
                 top: 140px;
                 left: 780px;
             }
+
             .h3a {
                 top: 60px;
                 left: 980px;
             }
+
             .h3b {
                 top: 40px;
                 left: 1140px;
             }
+
             .h4a {
                 top: 520px;
                 left: 541px;
             }
+
             .h4b {
                 top: 460px;
                 left: 725px;
             }
+
             .h5a {
                 top: 358px;
                 left: 975px;
             }
-            .h5b{
+
+            .h5b {
                 top: 305px;
                 left: 1120px;
             }
+
             .h6a {
                 top: 200px;
                 left: 1370px;
             }
+
             .h6b {
                 top: 169px;
                 left: 1523px;
             }
+        }
+    }
+    .pop-up-alert {
+        font-family: 'Roboto', sans-serif;
+        color: white;
+        font-size: 15px;
+        display: flex;
+        flex-direction: column;
+        padding-left: 40px;
+        padding-top: 150px;
+        position: absolute;
+        bottom: 0;
+        left: -500px;
+        width: 500px;
+        height: 350px;
+        background: #ffffff59;
+        backdrop-filter: blur(4px);
+        border-top-right-radius: 100%;
+        z-index: 0;
+        transition: .3s;
+
+        &:hover {
+            width: 550px;
+            height: 400px;
+            padding-left: 50px;
+            padding-top: 170px;
+            transition: .3s;
+        }
+        .arrow-icon {
+            font-size: 96px;
+            transition: .3s;
+            animation: arrowAnimation 1s ease-in-out infinite alternate;
+        }
+
+
+        h1 {
+            font-weight: 800;
+            text-shadow: 0px 2px 1px rgba(0, 0, 0, 0.7);
+        }
+
+        p {
+            font-weight: 400;
+            text-shadow: 0px 2px 1px rgba(0, 0, 0, 0.7);
         }
     }
 }
@@ -83,12 +155,57 @@
 @import '_var';
 @import '_slider-module';
 
-@media (max-width: 1360px) {
+
+@media (max-width: 1920px) {
     .map {
         .bg {
-            min-width: 1360px;
+            min-width: 1920px;
             max-height: 900px;
         }
+
         overflow: scroll;
+    }
+}
+
+@media (max-width: 1750px) {
+    .map {
+        .pop-up-alert {
+            animation: alertShow .6s ease-in-out 1 forwards;
+            display: flex;
+            &.clicked {
+                animation: alertHide .6s ease-in-out 1 forwards;
+            }
+        }
+        
+    }
+}
+
+@keyframes alertShow {
+    from {
+        left: -500px;
+    }
+
+    to {
+        left: 0px;
+    }
+}
+
+
+@keyframes alertHide {
+    from {
+        left: 0px;
+    }
+
+    to {
+        left: -500px;
+    }
+}
+
+@keyframes arrowAnimation {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(150px);
     }
 }
