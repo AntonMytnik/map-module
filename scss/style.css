@@ -1,18 +1,33 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap");
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
-body {
-  background-color: rgb(34, 34, 34);
-}
-
 .wrap {
   display: flex;
   flex-direction: column;
   position: relative;
+}
+
+.test {
+  color: black;
+}
+
+svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  min-width: 1920px;
+  height: 100%;
+  opacity: 0;
+  z-index: 9;
+}
+svg polygon {
+  z-index: 10;
 }
 
 .map {
@@ -29,13 +44,15 @@ body {
   -webkit-user-drag: none;
 }
 .map .houses .block {
-  opacity: 0;
   transition: 0.3s;
 }
-.map .houses .block:hover {
-  opacity: 1;
+.map .houses .block img.hovered {
   transition: 0.3s;
-  cursor: pointer;
+  opacity: 1;
+}
+.map .houses .block > img {
+  transition: 0.3s;
+  opacity: 0;
 }
 .map .houses .block .house {
   position: absolute;
@@ -128,6 +145,90 @@ body {
 .map .pop-up-alert p {
   font-weight: 400;
   text-shadow: 0px 2px 1px rgba(0, 0, 0, 0.7);
+}
+
+.mobile {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  padding: 100px 20px 20px 20px;
+}
+.mobile .title {
+  font-family: "Montserrat", sans-serif;
+  text-transform: uppercase;
+  font-size: 32px;
+}
+.mobile .sub-title {
+  font-family: "Montserrat", sans-serif;
+  text-transform: uppercase;
+  font-size: 24px;
+}
+.mobile .types {
+  display: flex;
+  margin-top: 30px;
+  gap: 25px;
+}
+.mobile .types .circle {
+  width: 11px;
+  height: 11px;
+  border-radius: 100%;
+}
+.mobile .types .sold > .circle {
+  background-color: #ffae00;
+}
+.mobile .types .free > .circle {
+  background-color: #d9d9d9;
+}
+.mobile .types .free,
+.mobile .types .sold {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  font-family: "Roboto Condensed", sans-serif;
+  font-size: 14px;
+}
+.mobile .flats {
+  display: flex;
+  justify-content: center;
+  margin-top: 25px;
+  gap: 10px;
+  flex-wrap: wrap;
+  max-width: 500px;
+}
+.mobile .flats .flats-card {
+  width: 172.5px;
+  height: 83px;
+  background-color: #d9d9d9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-family: "Roboto Condensed", sans-serif;
+  font-size: 14px;
+  transition: 0.3s;
+}
+.mobile .flats .flats-card .address {
+  font-weight: bold;
+}
+.mobile .flats .flats-card .number {
+  font-family: "Roboto";
+  font-weight: 800;
+  font-size: 24px;
+  opacity: 0.3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.mobile .flats .flats-card.hovered {
+  background-color: #84EF88;
+}
+.mobile .flats .flats-card.error {
+  background-color: #FF725C;
+}
+.mobile .flats .flats-card.sold {
+  background-color: #FFAE00;
 }
 
 .slider-module .text-block h1 {
@@ -290,6 +391,26 @@ body {
   .map .pop-up-alert.clicked {
     -webkit-animation: alertHide 0.6s ease-in-out 1 forwards;
             animation: alertHide 0.6s ease-in-out 1 forwards;
+  }
+}
+@media (max-width: 768px) {
+  .mobile {
+    display: flex;
+  }
+
+  .map {
+    display: none;
+  }
+}
+@media (max-width: 394px) {
+  .mobile .flats .flats-card {
+    width: 240px;
+    height: 115px;
+    font-size: 16px;
+    gap: 25px;
+  }
+  .mobile .flats .flats-card .number {
+    font-size: 36px;
   }
 }
 @-webkit-keyframes alertShow {
