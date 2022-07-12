@@ -1,6 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;800&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap");
 * {
   box-sizing: border-box;
   margin: 0;
@@ -11,6 +12,7 @@
   display: flex;
   flex-direction: column;
   position: relative;
+  overflow-y: hidden;
 }
 
 .test {
@@ -24,10 +26,10 @@ svg {
   min-width: 1920px;
   height: 100%;
   opacity: 0;
-  z-index: 9;
+  z-index: 3;
 }
 svg polygon {
-  z-index: 10;
+  z-index: 4;
 }
 
 .map {
@@ -373,6 +375,348 @@ svg polygon {
   padding-right: 8px;
 }
 
+@font-face {
+  font-family: Montserrat;
+  src: url("../fonts/Montserrat/Montserrat-Bold.ttf");
+}
+* {
+  margin: 0;
+  padding: 0;
+}
+
+h1 {
+  text-align: center;
+  width: 100%;
+  margin-top: 20px;
+}
+
+.popUpWindow {
+  position: absolute;
+  top: -1000px;
+  left: -1000px;
+}
+
+.popUpWindow,
+.house-card-info {
+  z-index: 15;
+  font-family: "Montserrat";
+  background: rgba(255, 255, 255, 0.85);
+  -webkit-backdrop-filter: blur(10px);
+          backdrop-filter: blur(10px);
+  width: 245px;
+  height: 360px;
+  display: grid;
+  grid-template-rows: 90px 1fr 145px;
+  justify-items: center;
+  align-items: center;
+}
+.popUpWindow .popUp-header,
+.house-card-info .popUp-header {
+  border-bottom: 1px solid white;
+  padding-bottom: 12px;
+  width: 83%;
+  margin: 0 auto;
+  margin-top: 25px;
+}
+.popUpWindow .popUp-header h2,
+.popUpWindow .popUp-header h3,
+.house-card-info .popUp-header h2,
+.house-card-info .popUp-header h3 {
+  text-transform: uppercase;
+  color: black;
+  width: 100%;
+}
+.popUpWindow .popUp-header h2,
+.house-card-info .popUp-header h2 {
+  font-size: 20px;
+}
+.popUpWindow .popUp-header h3,
+.house-card-info .popUp-header h3 {
+  font-size: 15px;
+}
+.popUpWindow .popUp-body,
+.house-card-info .popUp-body {
+  padding-top: 10px;
+  padding-bottom: 17px;
+  width: 83%;
+}
+.popUpWindow .popUp-body ul,
+.house-card-info .popUp-body ul {
+  margin-left: 0;
+  padding-left: 0;
+  list-style: none;
+}
+.popUpWindow .popUp-body ul li,
+.house-card-info .popUp-body ul li {
+  margin-top: 7px;
+  font-size: 14px;
+  font-family: "Roboto", sans-serif;
+}
+.popUpWindow .popUp-body ul li b,
+.house-card-info .popUp-body ul li b {
+  color: #FF3B4C;
+  font-size: 16px;
+  display: block;
+  font-family: "Montserrat";
+}
+.popUpWindow .popUp-footer,
+.house-card-info .popUp-footer {
+  border-top: 1px solid white;
+  width: 100%;
+}
+.popUpWindow .popUp-footer button,
+.house-card-info .popUp-footer button {
+  height: 41px;
+  width: 135px;
+  display: block;
+  margin: 0 auto;
+}
+.popUpWindow .popUp-footer button:last-child,
+.house-card-info .popUp-footer button:last-child {
+  margin: 23px auto 0 auto;
+}
+.popUpWindow .popUp-footer button:first-child,
+.house-card-info .popUp-footer button:first-child {
+  margin-top: 15px;
+}
+
+.house-info.hiden {
+  top: 2000px;
+}
+
+.house-info {
+  transition: 0.5s;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  z-index: 5;
+  height: 100%;
+  padding: 0 10% 0 10%;
+  display: grid;
+  grid-template-rows: 100px 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+.house-info .close-info-container {
+  width: 100%;
+  grid-column-start: 1;
+  grid-column-end: 4;
+  display: flex;
+  align-items: flex-end;
+  justify-content: end;
+}
+.house-info .close-info-container .close-btn {
+  transition: 0.3s;
+  width: 80px;
+  margin: auto 0 auto auto;
+}
+.house-info .close-info-container .close-btn:hover {
+  cursor: pointer;
+  transform: scale(1.1);
+}
+.house-info .close-info-container .close-btn img {
+  width: 18px;
+  height: 18px;
+  margin: 0 auto;
+  display: block;
+}
+.house-info .close-info-container .close-btn span {
+  margin-top: 9px;
+  font-size: 14px;
+  line-height: 17px;
+  text-align: center;
+  display: block;
+  text-transform: uppercase;
+  color: #FFFFFF;
+}
+.house-info .house-card-info {
+  margin: 0 auto;
+  width: 95%;
+  height: 80%;
+  grid-template-rows: 125px 1fr 100px;
+  padding-top: 0 !important;
+}
+.house-info .house-card-info .popUp-header h2 {
+  font-size: 1.8vw;
+}
+.house-info .house-card-info .popUp-header h3 {
+  font-size: 1vw;
+}
+.house-info .house-card-info .popUp-body ul {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+.house-info .house-card-info .popUp-body ul li {
+  font-size: 1vw;
+  margin-top: 34px;
+}
+.house-info .house-card-info .popUp-body ul li b {
+  font-size: 1.1vw;
+}
+.house-info .house-card-info .popUp-footer {
+  padding-top: 15px;
+}
+.house-info .house-card-info .popUp-footer button {
+  margin: 0 auto;
+}
+.house-info .house-recipe {
+  margin: 0 auto;
+  width: 95%;
+  height: 80%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid white;
+  background: rgba(255, 255, 255, 0.5);
+}
+.house-info .house-recipe img {
+  width: 80%;
+  height: 80%;
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+.house-info .house-layout {
+  margin: 0 auto;
+  height: 80%;
+  width: 95%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.house-info .house-layout img {
+  width: 100%;
+  height: 300px;
+}
+.house-info .house-layout img:last-child {
+  margin-top: 5px;
+}
+
+main.test_container {
+  overflow-x: auto;
+  overflow-y: hidden;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 1920px;
+  height: 900px;
+  position: relative;
+}
+main.test_container .back {
+  background: url("../images/map_promo.jpg") no-repeat;
+  background-size: 100%, 100%;
+  position: relative;
+  width: 1920px;
+  height: 100%;
+}
+main.test_container .back .pointer_block {
+  width: 100px;
+  height: 100px;
+  background: red;
+  position: absolute;
+  opacity: 0.6;
+  transition: 0.3s;
+}
+main.test_container .back .pointer_block:hover {
+  cursor: pointer;
+  background: orange;
+}
+
+@media screen and (min-width: 1440px) {
+  .house-info {
+    grid-template-rows: 200px 600px;
+  }
+  .house-info .house-card-info {
+    grid-template-rows: 150px 1fr 150px;
+  }
+  .house-info .house-card-info .popUp-footer {
+    padding-top: 30px;
+  }
+  .house-info .house-card-info .popUp-body {
+    padding-top: 0;
+  }
+  .house-info .close-info-container .close-btn {
+    margin: auto 0 15px 0;
+  }
+  .house-info .house-layout img {
+    width: 100%;
+    height: 225px;
+  }
+}
+@media screen and (max-width: 1440px) {
+  .house-info {
+    grid-template-rows: 150px 460px;
+  }
+  .house-info .house-recipe {
+    height: 95%;
+  }
+  .house-info .house-card-info {
+    height: 95%;
+  }
+  .house-info .close-info-container .close-btn {
+    margin: auto 0 15px 0;
+  }
+  .house-info .house-layout {
+    height: 95%;
+  }
+  .house-info .house-layout img {
+    height: 215px;
+  }
+  .house-info .house-layout img:last-child {
+    margin-top: 8px;
+  }
+  .house-card-info .popUp-header h2 {
+    font-size: 24px;
+  }
+  .house-card-info .popUp-header h3 {
+    font-size: 18px;
+  }
+  .house-card-info .popUp-body ul li {
+    font-size: 14px;
+  }
+  .house-card-info .popUp-body ul li b {
+    font-size: 16px;
+  }
+}
+@media screen and (max-width: 1050px) {
+  .house-info {
+    grid-template-rows: 100px 1fr 340px;
+    grid-template-columns: 1fr 1fr;
+  }
+  .house-info .close-info-container {
+    grid-column-start: 1;
+    grid-column-end: 3;
+  }
+  .house-info .house-layout {
+    width: 97%;
+    flex-direction: row;
+    grid-column-start: 1;
+    grid-column-end: 3;
+  }
+  .house-info .house-layout img {
+    height: 250px;
+    width: 48.6%;
+  }
+  .house-info .house-layout img:last-child {
+    margin: 0;
+  }
+  .house-info .house-recipe {
+    height: 95%;
+  }
+  .house-info .house-card-info {
+    height: 95%;
+  }
+  .house-info .house-card-info .popUp-header h2 {
+    font-size: 20px;
+  }
+  .house-info .house-card-info .popUp-header h3 {
+    font-size: 18px;
+  }
+  .house-info .house-card-info .popUp-body ul li {
+    font-size: 12px;
+  }
+  .house-info .house-card-info .popUp-body ul li b {
+    font-size: 14px;
+  }
+}
 @media (max-width: 1920px) {
   .map {
     overflow: scroll;
@@ -397,7 +741,6 @@ svg polygon {
   .mobile {
     display: flex;
   }
-
   .map {
     display: none;
   }

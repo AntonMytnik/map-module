@@ -12,6 +12,7 @@
     display: flex;
     flex-direction: column;
     position: relative;
+    overflow-y: hidden;
 }
 
 .test {
@@ -25,10 +26,10 @@ svg {
     min-width: 1920px;
     height: 100%;
     opacity: 0;
-    z-index: 9;
+    z-index: 3;
 
     polygon {
-        z-index: 10;
+        z-index: 4;
     }
 }
 
@@ -268,6 +269,7 @@ svg {
 
 @import '_var';
 @import '_slider-module';
+@import '_hover-map';
 
 
 @media (max-width: 1920px) {
