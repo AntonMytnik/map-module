@@ -2,10 +2,10 @@ popUpWindows($('.hitbox'))
 show = true
 
 function setLocation(curLoc) {
-    var newurl = window.location.protocol + "//" + window.location.host + window.location.pathname + 'house?id=' + curLoc;
+    var newurl = window.location.protocol + "//" + window.location.host + '?id=' + curLoc;
     window.history.pushState({ path: newurl }, '123', newurl);
 }
-// setLocation("1")
+setLocation("1")
 
 function popUpWindows(elem_to_hover) {
 
