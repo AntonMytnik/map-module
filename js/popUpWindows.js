@@ -1,19 +1,25 @@
-popUpWindows($('.hitbox'))
+elem_to_hover = $('.hitbox')
+popUpWindows(elem_to_hover)
+openHouse(1)
 show = true
+short_arr_houses = null
 
-function setLocation(curLoc) {
-    var newurl = window.location.protocol + "//" + window.location.host + '?id=' + curLoc;
-    window.history.pushState({ path: newurl }, '123', newurl);
+function setLocation(curLoc, titile) {
+    var newurl = window.location.protocol + "//" + window.location.host + '/map_page?id=' + curLoc
+    window.history.pushState(null, null, newurl)
+    document.title = "This is the new page title."
+    $('meta[name=description]').attr('content', 'desk!!')
+    $('meta[name=Keywords]').attr('content', 'tags!!')
+
 }
-setLocation("1")
 
 function popUpWindows(elem_to_hover) {
-
     elem_to_hover.on({
         mouseenter: function() {
-            if (show) {
+            if (show && short_arr_houses !== null) {
                 hov = $(this)
-                selected_house = $(this).attr('id')
+                selected_house = $(this).index()
+                fullUpPopUpWindow(selected_house)
                 hovered_elem_position_left = hov.position().left - $('.popUpWindow').width() / 2
                 hovered_elem_position_top = hov.position().top - hov.position().top / 2
                 if (hovered_elem_position_top < 50)
@@ -43,14 +49,14 @@ $('#more-house-info').on('click', function() {
     $('.house-info').toggleClass('hiden')
     show = false
     if (selected_house !== null && selected_house !== undefined) {
+        fullUpHouseInfo(selected_house, elem_to_hover.eq(selected_house).attr('id'))
         $('.map').css({
-                'filter': 'blur(5px)',
-                '-webkit-filter': 'blur(5px)',
-                '-moz-filter': 'blur(5px)',
-                '-o-filter': 'blur(5px)',
-                '-ms-filter': 'blur(5px)'
-            })
-            // setLocation(selected_house)
+            'filter': 'blur(5px)',
+            '-webkit-filter': 'blur(5px)',
+            '-moz-filter': 'blur(5px)',
+            '-o-filter': 'blur(5px)',
+            '-ms-filter': 'blur(5px)'
+        })
         $('.popUpWindow').css({ top: -1000, left: -1000 })
 
     }
@@ -67,6 +73,72 @@ $('.house-info .close-info-container .close-btn').on('click', function() {
     show = true
 })
 
+function buildMap() {
+
+}
+
+// Заполняем окно с большим количеством информации
+function fullUpHouseInfo(index, id) {
+    $('.house-info .house-card-info .popUp-header h2').text(short_arr_houses[index]['name'])
+    $('.house-info .house-card-info .popUp-header h3').text(short_arr_houses[index]['address'])
+    $('.house-info .house-card-info .popUp-body ul li:nth-child(1)').find('b').text(short_arr_houses[index]['living_space'] + ' м²')
+    $('.house-info .house-card-info .popUp-body ul li:nth-child(2)').find('b').text(short_arr_houses[index]['land_area'] + ' м²')
+    $('.house-info .house-card-info .popUp-body ul li:nth-child(3)').find('b').text(short_arr_houses[index]['do_ready'])
+    $('.house-info .house-card-info .popUp-body ul li:nth-child(4)').find('b').text(short_arr_houses[index]['price'] + ' ₽')
+        // Изображения
+    $('.house-info .house-recipe img').attr("src", "https://covidlist.ru/api/GET/v1/house/image/plan?house_id=" + id)
+    $('.house-info .house-layout img:nth-child(1)').attr("src", "https://covidlist.ru/api/GET/v1/house/image/main1?house_id=" + id)
+    $('.house-info .house-layout img:nth-child(2)').attr("src", "https://covidlist.ru/api/GET/v1/house/image/main2?house_id=" + id)
+
+
+}
+// Генерируем информацию в маленьком окне
+function fullUpPopUpWindow(id) {
+    $('.popUpWindow .popUp-header h2').text(short_arr_houses[id]['name'])
+    $('.popUpWindow .popUp-header h3').text(short_arr_houses[id]['address'])
+        // Маркетинговые изображения
+    $('.popUpWindow .popUp-body ul li:nth-child(1)').find('b').text(short_arr_houses[id]['price'] + ' ₽')
+    $('.popUpWindow .popUp-body ul li:nth-child(2)').find('b').text(short_arr_houses[id]['living_space'] + ' м²')
+}
+
+// Получаем информацию для домов
+function openHouse() {
+    // setLocation(selected_house)
+
+    $.ajax({
+        url: 'https://covidlist.ru/api/GET/v1/house/info/',
+        method: 'get',
+        dataType: 'json',
+        data: {},
+        success: function(data) {
+            if (data.status === 'success') {
+                short_arr_houses = data.data
+                $(elem_to_hover).each(function(index) {
+                    $(this).attr('id', data.data[index]['id'])
+                });
+            }
+        },
+        error: function(jqXHR, exception) {
+            if (jqXHR.status === 0) {
+                console.error('Not connect. Verify Network.')
+            } else if (jqXHR.status == 404) {
+                console.error('Requested page not found (404).')
+            } else if (jqXHR.status == 500) {
+                console.error('Internal Server Error (500).')
+            } else if (exception === 'parsererror') {
+                console.error('Requested JSON parse failed.')
+            } else if (exception === 'timeout') {
+                console.error('Time out error.')
+            } else if (exception === 'abort') {
+                console.error('Ajax request aborted.')
+            } else {
+                console.error('Uncaught Error. ' + jqXHR.responseText)
+            }
+        }
+    });
+}
+
+//Закрывает всплывающее окно
 function closePopUpWindow() {
     $('.popUpWindow').css({ top: -1000, left: -1000 })
     show = true
