@@ -4,13 +4,12 @@ openHouse(1)
 show = true
 short_arr_houses = null
 
-function setLocation(curLoc, titile) {
+function setLocation(curLoc, titile, keywords, description) {
     var newurl = window.location.protocol + "//" + window.location.host + '/map_page?id=' + curLoc
     window.history.pushState(null, null, newurl)
-    document.title = "This is the new page title."
-    $('meta[name=description]').attr('content', 'desk!!')
-    $('meta[name=Keywords]').attr('content', 'tags!!')
-
+    document.title = titile
+    $('meta[name=description]').attr('content', description)
+    $('meta[name=Keywords]').attr('content', keywords)
 }
 
 function popUpWindows(elem_to_hover) {
